@@ -1,0 +1,8 @@
+<div
+  cdkDropList
+  [cdkDropListData]="cdkDropListData"
+  [cdkDropListConnectedTo]="cdkDropListConnectedTo"
+  class="example-list"
+  (cdkDropListDropped)="drop($event)">
+  <div class="example-box" *ngFor="let item of cdkDropListData" cdkDrag>{{item.name}}</div>
+</div>

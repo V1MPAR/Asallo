@@ -1,0 +1,37 @@
+<h2 mat-dialog-title *ngIf="!data">Dodawanie nowego zadania</h2>
+<h2 mat-dialog-title *ngIf="data">Edytowanie zadania</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="newTaskForm">
+    <div class="flex-column" *ngIf="!data">
+      <label id="example-radio-group-label">Wybierz stan zadania</label>
+      <mat-radio-group
+        formControlName="state">
+        <mat-radio-button value="todo">
+          To Do
+        </mat-radio-button>
+        <mat-radio-button value="in_progress">
+          In progress...
+        </mat-radio-button>
+        <mat-radio-button value="done">
+          Done!
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Treść zadania</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Do kiedy trzeba zrobić?</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Anuluj</button>
+  <button mat-button cdkFocusInitial (click)="addTask()" *ngIf="!data">Dodaj</button>
+  <button mat-button cdkFocusInitial (click)="editTask()" *ngIf="data">Edytuj</button>
+</mat-dialog-actions>

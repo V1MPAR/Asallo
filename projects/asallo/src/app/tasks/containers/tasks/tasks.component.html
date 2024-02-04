@@ -1,0 +1,87 @@
+<lib-navbar></lib-navbar>
+<div class="task-list-wrapper">
+  <div class="task-list">
+    <div>
+      <h1>To Do</h1>
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="todo"
+        [cdkDropListConnectedTo]="[inProgressList, doneList]"
+        class="example-list"
+        [ngClass]="{'flex-center': todoListEmpty}"
+        (cdkDropListDropped)="drop($event, lists.TODO)">
+        <div class="example-box" *ngFor="let item of todo" cdkDrag>
+          {{item.name}}
+          <div style="display: flex; gap: 5px; align-items: center">
+            <button mat-icon-button (click)="editTask(item)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteTask(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <mat-icon>check_circle_outline</mat-icon>
+          </div>
+        </div>
+        <div *ngIf="todoListEmpty" class="empty-placeholder">
+          <h3>Nie masz żadnych zadań do zrobienia... czy aby na pewno?</h3>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h1>In progress...</h1>
+      <div
+        cdkDropList
+        #inProgressList="cdkDropList"
+        [cdkDropListData]="inProgress"
+        [cdkDropListConnectedTo]="[todoList, doneList]"
+        class="example-list"
+        [ngClass]="{'flex-center': inProgressListEmpty}"
+        (cdkDropListDropped)="drop($event, lists.IN_PROGRESS)">
+        <div class="example-box" *ngFor="let item of inProgress" cdkDrag>
+          {{item.name}}
+          <div style="display: flex; gap: 5px; align-items: center">
+            <button mat-icon-button (click)="editTask(item)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteTask(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <mat-icon>check_circle_outline</mat-icon>
+          </div>
+        </div>
+        <div *ngIf="inProgressListEmpty" class="empty-placeholder">
+          <h3>Nie pracujesz obecnie nad niczym... może czas zacząć?</h3>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h1>Done!</h1>
+      <div
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[todoList, inProgressList]"
+        class="example-list"
+        [ngClass]="{'flex-center': doneListEmpty}"
+        (cdkDropListDropped)="drop($event, lists.DONE)">
+        <div class="example-box done" *ngFor="let item of done" cdkDrag>
+          {{item.name}}
+          <div style="display: flex; gap: 5px; align-items: center">
+            <button mat-icon-button (click)="editTask(item)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteTask(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <mat-icon>check_circle_outline</mat-icon>
+          </div>
+        </div>
+        <div *ngIf="doneListEmpty" class="empty-placeholder">
+          <h3>Nic jeszcze nie zrobiłeś, zabierz się do roboty!</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
